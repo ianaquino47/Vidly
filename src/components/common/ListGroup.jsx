@@ -17,7 +17,9 @@ const ListGroup = (props) => {
             onItemSelect(item);
           }}
           key={item[valueProperty]}
-          className={item === selectedItem ? "list-group-item active" : "list-group-item"}
+          className={
+            item === selectedItem ? "list-group-item active" : "list-group-item"
+          }
         >
           {item[textProperty]}
         </li>
@@ -28,7 +30,7 @@ const ListGroup = (props) => {
 
 ListGroup.defaultProps = {
   textProperty: "name",
-  valueProperty: "_id"
-}
+  valueProperty: "_id",
+};
 
 export default ListGroup;
