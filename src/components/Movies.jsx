@@ -11,7 +11,8 @@ class Movies extends Component {
     movies: [],
     genres: [],
     pageSize: 4,
-    currentPage: 1
+    currentPage: 1,
+    selectedGenre: ""
   };
 
   componentDidMount() {
@@ -36,12 +37,18 @@ class Movies extends Component {
   };
 
   handleGenreSelect = (genre) => {
-    console.log(genre)
+    this.setState( {selectedGenre: genre })
   }
 
   render() {
     const { length: count } = this.state.movies;
-    const { pageSize, currentPage, movies: allMovies } = this.state;
+    const {
+      pageSize,
+      currentPage,
+      movies: allMovies,
+      genres,
+      selectedGenre,
+    } = this.state;
     
     if (count === 0) return <p>There are no movies in the database.</p>;
 
@@ -51,8 +58,9 @@ class Movies extends Component {
       <div className="row">
         <div className="col-3">
           <ListGroup
-            items={this.state.genres}
+            items={genres}
             onItemSelect={this.handleGenreSelect}
+            selectedItem={selectedGenre}
           />
         </div>
         <div className="col">
