@@ -5,7 +5,6 @@ const Input = ({name, label, value, error, onChange}) => {
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
       <input
-        autoFocus
         name={name}
         value={value}
         onChange={onChange}
