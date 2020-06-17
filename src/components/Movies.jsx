@@ -5,7 +5,8 @@ import MoviesTable from "./MoviesTable";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 import { paginate } from "../utils/paginate";
-import _ from 'lodash'
+import { Link } from "react-router-dom";
+import _ from "lodash";
 
 class Movies extends Component {
   state = {
@@ -14,7 +15,7 @@ class Movies extends Component {
     pageSize: 4,
     currentPage: 1,
     selectedGenre: "",
-    sortColumn: {path: 'title', order: 'asc'}
+    sortColumn: { path: "title", order: "asc" },
   };
 
   componentDidMount() {
@@ -44,8 +45,8 @@ class Movies extends Component {
   };
 
   handleSort = (sortColumn) => {
-    this.setState({ sortColumn })
-  }
+    this.setState({ sortColumn });
+  };
 
   getPageData = () => {
     const {
@@ -60,16 +61,16 @@ class Movies extends Component {
       selectedGenre && selectedGenre.name !== "All Genres"
         ? allMovies.filter((movie) => movie.genre._id === selectedGenre._id)
         : allMovies;
-    
-    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order])
+
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
     const movies = paginate(sorted, currentPage, pageSize); //gets the right items for current page given the size
 
     return {
       totalCount: filtered.length,
-      data: movies 
-    }
-  }
+      data: movies,
+    };
+  };
 
   render() {
     const { length: count } = this.state.movies;
@@ -78,12 +79,12 @@ class Movies extends Component {
       currentPage,
       genres,
       selectedGenre,
-      sortColumn
+      sortColumn,
     } = this.state;
 
     if (count === 0) return <p>There are no movies in the database.</p>;
 
-    const {totalCount, data: movies} = this.getPageData();
+    const { totalCount, data: movies } = this.getPageData();
 
     return (
       <div className="row">
@@ -95,6 +96,11 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
+          <Link
+            to="/movies/new"
+            className="btn btn-primary"
+            style={{ marginBottom: 20 }}
+          >New Movie</Link>
           <p>Showing {totalCount} movies in the database.</p>
           <MoviesTable
             movies={movies}
